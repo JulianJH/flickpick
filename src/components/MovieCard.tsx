@@ -9,8 +9,8 @@ interface Props {
 
 // Tinder-style swipe: either drag far enough, or flick fast enough — a slow
 // drag that doesn't cover much distance shouldn't register as a pick.
-const DISTANCE_THRESHOLD = 140
-const VELOCITY_THRESHOLD = 700
+const DISTANCE_THRESHOLD = 90
+const VELOCITY_THRESHOLD = 200
 
 export function MovieCard({ movie, onPick }: Props) {
   const [isDragging, setIsDragging] = useState(false)

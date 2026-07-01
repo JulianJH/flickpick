@@ -25,7 +25,10 @@ export function SwipeArena({
   onPick,
   onBack,
 }: Props) {
-  const progress = totalMatchups > 0 ? (completedMatchups / totalMatchups) * 100 : 0
+  // Matches the counter label's convention (current match number, 1-indexed),
+  // so the bar and the "N/total" text always agree instead of the bar lagging
+  // one match behind the label.
+  const progress = totalMatchups > 0 ? ((completedMatchups + 1) / totalMatchups) * 100 : 0
   const [showTutorial, setShowTutorial] = useState(() => {
     try {
       return !localStorage.getItem(TUTORIAL_SEEN_KEY)

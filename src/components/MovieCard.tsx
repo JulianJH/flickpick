@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { animate, motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion'
 import type { Movie } from '../types'
 
 interface Props {
@@ -7,14 +7,17 @@ interface Props {
   onPick: () => void
 }
 
-const SWIPE_THRESHOLD = 140
+// Tinder-style swipe: either drag far enough, or flick fast enough — a slow
+// drag that doesn't cover much distance shouldn't register as a pick.
+const DISTANCE_THRESHOLD = 140
+const VELOCITY_THRESHOLD = 700
 
 export function MovieCard({ movie, position, onPick }: Props) {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotate = useTransform(x, [-200, 200], [-6, 6])
   const distance = useTransform([x, y], ([xv, yv]: number[]) => Math.hypot(xv, yv))
-  const pickOverlayOpacity = useTransform(distance, [0, SWIPE_THRESHOLD], [0, 1])
+  const pickOverlayOpacity = useTransform(distance, [0, DISTANCE_THRESHOLD], [0, 1])
 
   // Only free to swipe outward (top card up, bottom card down); inward is hard-blocked (no rubber-band)
   const dragConstraints =
@@ -22,11 +25,19 @@ export function MovieCard({ movie, position, onPick }: Props) {
   const dragElastic =
     position === 'top' ? { top: 0.5, bottom: 0, left: 0.5, right: 0.5 } : { top: 0, bottom: 0.5, left: 0.5, right: 0.5 }
 
-  function handleDragEnd() {
+  function handleDragEnd(_: unknown, info: PanInfo) {
     // Use the actual (elastic-adjusted) card position, not the raw pointer offset,
     // so a big finger movement that only nudges the card visually doesn't count as a swipe.
-    const swiped = Math.hypot(x.get(), y.get()) > SWIPE_THRESHOLD
-    if (swiped) onPick()
+    const traveled = Math.hypot(x.get(), y.get())
+    const flicked = Math.hypot(info.velocity.x, info.velocity.y) > VELOCITY_THRESHOLD
+    const swiped = traveled > DISTANCE_THRESHOLD || (flicked && traveled > DISTANCE_THRESHOLD * 0.35)
+
+    if (swiped) {
+      onPick()
+    } else {
+      animate(x, 0, { type: 'spring', stiffness: 500, damping: 30 })
+      animate(y, 0, { type: 'spring', stiffness: 500, damping: 30 })
+    }
   }
 
   return (

@@ -10,7 +10,7 @@ export function LoadingScreen({ username, page, total }: Props) {
   const pct = total > 1 ? Math.round((page / total) * 100) : 0
 
   return (
-    <div className="min-h-screen bg-lb-bg flex flex-col items-center justify-center px-6">
+    <div className="min-h-dvh bg-lb-bg flex flex-col items-center justify-center px-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

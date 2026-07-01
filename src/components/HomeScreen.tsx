@@ -23,7 +23,7 @@ export function HomeScreen({ onStart }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-lb-bg flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-dvh bg-lb-bg flex flex-col items-center justify-center px-6 py-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}

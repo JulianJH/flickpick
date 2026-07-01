@@ -24,7 +24,7 @@ export function SwipeArena({
   const progress = totalMatchups > 0 ? (completedMatchups / totalMatchups) * 100 : 0
 
   return (
-    <div className="h-screen bg-lb-bg flex flex-col overflow-hidden">
+    <div className="h-dvh bg-lb-bg flex flex-col overflow-hidden">
       {/* Header */}
       <div className="px-4 pt-safe pt-3 pb-2 flex items-center gap-3 shrink-0 z-10">
         <button

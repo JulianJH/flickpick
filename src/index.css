@@ -7,11 +7,18 @@
     background-color: #0f0f0f;
     color: #e8e8e8;
     -webkit-tap-highlight-color: transparent;
+    height: 100%;
   }
 
   body {
     margin: 0;
+    height: 100%;
+    overflow: hidden;
     overscroll-behavior: none;
+  }
+
+  #root {
+    height: 100%;
   }
 
   /* Safe area insets for notched phones */

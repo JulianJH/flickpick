@@ -11,7 +11,7 @@ const CONFETTI = ['🎉', '🎊', '⭐', '🍿', '🎬', '✨']
 
 export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
   return (
-    <div className="min-h-screen bg-lb-bg flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-dvh bg-lb-bg flex flex-col items-center justify-center px-6 py-12">
       {/* Floating confetti */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 18 }).map((_, i) => (

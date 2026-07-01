@@ -13,7 +13,7 @@ function proxyUrl(url: string): string {
     const path = url.replace('https://letterboxd.com', '')
     return `/letterboxd-proxy${path}`
   }
-  return `https://corsproxy.io/?url=${encodeURIComponent(url)}`
+  return `https://flickpick-letterboxd-proxy.jorgensen-julian.workers.dev/?url=${encodeURIComponent(url)}`
 }
 
 async function fetchPage(username: string, page: number): Promise<{ films: RawFilm[]; totalPages: number }> {

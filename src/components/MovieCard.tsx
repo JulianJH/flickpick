@@ -28,7 +28,8 @@ export function MovieCard({ movie, onPick }: Props) {
     const swiped = traveled > DISTANCE_THRESHOLD || (flicked && traveled > DISTANCE_THRESHOLD * 0.35)
 
     if (swiped) {
-      setIsDragging(false)
+      // Stay elevated — this card is about to be unmounted as the next matchup renders,
+      // no need to drop z-index (and doing so early would let it dip under its sibling).
       onPick()
     } else {
       // Stay elevated until the spring-back settles, so it doesn't dip under its sibling mid-animation

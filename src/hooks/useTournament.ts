@@ -81,8 +81,10 @@ export function useTournament() {
       state.currentMatchup
     : 0
 
+  // Fixed for the whole bracket, same reasoning as totalMatchups above —
+  // state.rounds.length grows lazily and isn't the true total round count.
   const roundLabel = state
-    ? getRoundLabel(state.currentRound, state.rounds.length)
+    ? getRoundLabel(state.currentRound, Math.round(Math.log2(state.movies.length)))
     : ''
 
   return { state, start, pick, reset, currentMatchup, totalMatchups, completedMatchups, roundLabel }

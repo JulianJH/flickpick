@@ -24,9 +24,9 @@ export function SwipeArena({
   const progress = totalMatchups > 0 ? (completedMatchups / totalMatchups) * 100 : 0
 
   return (
-    <div className="min-h-screen bg-lb-bg flex flex-col">
+    <div className="h-screen bg-lb-bg flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="px-4 pt-safe pt-4 pb-3 flex items-center gap-3">
+      <div className="px-4 pt-safe pt-4 pb-3 flex items-center gap-3 shrink-0">
         <button
           onClick={onBack}
           className="text-lb-muted hover:text-lb-text transition-colors text-sm"
@@ -44,7 +44,7 @@ export function SwipeArena({
       </div>
 
       {/* Progress bar */}
-      <div className="mx-4 h-1 bg-lb-border rounded-full overflow-hidden mb-4">
+      <div className="mx-4 h-1 bg-lb-border rounded-full overflow-hidden mb-4 shrink-0">
         <motion.div
           className="h-full bg-lb-accent rounded-full"
           animate={{ width: `${progress}%` }}
@@ -53,64 +53,35 @@ export function SwipeArena({
       </div>
 
       {/* VS label */}
-      <div className="text-center mb-3">
+      <div className="text-center mb-3 shrink-0">
         <span className="text-lb-muted text-xs font-semibold uppercase tracking-widest">
           Which would you rather watch?
         </span>
       </div>
 
-      {/* Cards */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={matchupKey}
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -40 }}
-          transition={{ duration: 0.25 }}
-          className="flex flex-col px-4 gap-3 pb-6"
-        >
-          {/* Movie A */}
-          <div className="flex flex-col gap-2">
-            <MovieCard
-              movie={matchup.a}
-              side="left"
-              onPick={() => onPick('a')}
-              compact
-            />
-            <button
-              onClick={() => onPick('a')}
-              className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
-            >
-              Pick This
-            </button>
-          </div>
+      {/* Cards — vertically centered in remaining space, never overflows */}
+      <div className="flex-1 min-h-0 flex items-center justify-center px-4 pb-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={matchupKey}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.25 }}
+            className="w-full max-h-full flex items-center gap-3"
+          >
+            <div className="flex-1 max-w-[45%]">
+              <MovieCard movie={matchup.a} onPick={() => onPick('a')} />
+            </div>
 
-          {/* Divider */}
-          <div className="flex items-center gap-2">
-            <div className="h-px flex-1 bg-lb-border" />
-            <span className="text-lb-muted text-xs font-bold bg-lb-surface rounded-full px-2 py-1">
-              VS
-            </span>
-            <div className="h-px flex-1 bg-lb-border" />
-          </div>
+            <span className="text-lb-muted text-xs font-bold shrink-0">VS</span>
 
-          {/* Movie B */}
-          <div className="flex flex-col gap-2">
-            <MovieCard
-              movie={matchup.b}
-              side="right"
-              onPick={() => onPick('b')}
-              compact
-            />
-            <button
-              onClick={() => onPick('b')}
-              className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
-            >
-              Pick This
-            </button>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+            <div className="flex-1 max-w-[45%]">
+              <MovieCard movie={matchup.b} onPick={() => onPick('b')} />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   )
 }

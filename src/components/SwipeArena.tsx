@@ -59,7 +59,7 @@ export function SwipeArena({
           </span>
         </div>
         <span className="text-lb-muted text-sm tabular-nums">
-          {completedMatchups}/{totalMatchups}
+          {completedMatchups + 1}/{totalMatchups}
         </span>
       </div>
 

@@ -26,7 +26,7 @@ export function SwipeArena({
   return (
     <div className="h-screen bg-lb-bg flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="px-4 pt-safe pt-4 pb-3 flex items-center gap-3 shrink-0">
+      <div className="px-4 pt-safe pt-3 pb-2 flex items-center gap-3 shrink-0 z-10">
         <button
           onClick={onBack}
           className="text-lb-muted hover:text-lb-text transition-colors text-sm"
@@ -44,7 +44,7 @@ export function SwipeArena({
       </div>
 
       {/* Progress bar */}
-      <div className="mx-4 h-1 bg-lb-border rounded-full overflow-hidden mb-4 shrink-0">
+      <div className="mx-4 h-1 bg-lb-border rounded-full overflow-hidden mb-2 shrink-0 z-10">
         <motion.div
           className="h-full bg-lb-accent rounded-full"
           animate={{ width: `${progress}%` }}
@@ -52,35 +52,32 @@ export function SwipeArena({
         />
       </div>
 
-      {/* VS label */}
-      <div className="text-center mb-3 shrink-0">
-        <span className="text-lb-muted text-xs font-semibold uppercase tracking-widest">
-          Which would you rather watch?
-        </span>
-      </div>
-
-      {/* Cards — vertically centered in remaining space, never overflows */}
-      <div className="flex-1 min-h-0 flex items-center justify-center px-4 pb-6">
+      {/* Cards — full-bleed split screen, swipe toward your pick */}
+      <div className="relative flex-1 min-h-0 flex flex-col gap-1.5 px-3 pb-3">
         <AnimatePresence mode="wait">
           <motion.div
             key={matchupKey}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.25 }}
-            className="w-full max-h-full flex items-center gap-3"
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1 min-h-0 flex flex-col gap-1.5"
           >
-            <div className="flex-1 max-w-[45%]">
-              <MovieCard movie={matchup.a} onPick={() => onPick('a')} />
+            <div className="flex-1 min-h-0">
+              <MovieCard movie={matchup.a} position="top" onPick={() => onPick('a')} />
             </div>
-
-            <span className="text-lb-muted text-xs font-bold shrink-0">VS</span>
-
-            <div className="flex-1 max-w-[45%]">
-              <MovieCard movie={matchup.b} onPick={() => onPick('b')} />
+            <div className="flex-1 min-h-0">
+              <MovieCard movie={matchup.b} position="bottom" onPick={() => onPick('b')} />
             </div>
           </motion.div>
         </AnimatePresence>
+
+        {/* VS chip floating over the divider */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+          <span className="text-lb-muted text-[10px] font-bold bg-lb-surface border border-lb-border rounded-full px-2 py-1 shadow-lg">
+            VS
+          </span>
+        </div>
       </div>
     </div>
   )

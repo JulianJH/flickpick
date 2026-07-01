@@ -67,9 +67,9 @@ export function SwipeArena({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.25 }}
-          className="flex-1 flex flex-col px-4 gap-4 pb-6"
+          className="flex flex-col px-4 gap-4 pb-6"
         >
-          <div className="flex gap-3 flex-1 items-stretch">
+          <div className="flex gap-3 items-start">
             {/* Movie A */}
             <div className="flex-1 flex flex-col gap-2">
               <MovieCard
@@ -86,7 +86,7 @@ export function SwipeArena({
             </div>
 
             {/* Divider */}
-            <div className="flex flex-col items-center justify-center gap-1 py-8">
+            <div className="flex flex-col items-center justify-center gap-1 self-stretch">
               <div className="w-px flex-1 bg-lb-border" />
               <span className="text-lb-muted text-xs font-bold bg-lb-surface rounded-full px-2 py-1">
                 VS

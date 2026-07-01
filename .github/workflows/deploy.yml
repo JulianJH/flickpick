@@ -33,7 +33,7 @@ jobs:
           VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
 
       - name: Add CNAME for custom domain
-        run: echo "julianjh.dev" > dist/CNAME
+        run: echo "tinder.julianjh.dev" > dist/CNAME
 
       - uses: actions/upload-pages-artifact@v3
         with:

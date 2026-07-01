@@ -32,9 +32,7 @@ export function HomeScreen({ onStart }: Props) {
       >
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-lb-accent mb-4">
-            <span className="text-3xl">🎬</span>
-          </div>
+          <img src="/favicon.svg" alt="" className="w-16 h-16 mx-auto mb-4" />
           <h1 className="text-3xl font-extrabold text-lb-text tracking-tight">
             Flick<span className="text-lb-accent">Pick</span>
           </h1>

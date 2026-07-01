@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#0f0f0f"/>
-  <text x="16" y="23" text-anchor="middle" font-size="20">🎬</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#00c030"/>
+  <!-- film sprocket holes -->
+  <circle cx="10" cy="16" r="3" fill="#0f0f0f"/>
+  <circle cx="10" cy="32" r="3" fill="#0f0f0f"/>
+  <circle cx="10" cy="48" r="3" fill="#0f0f0f"/>
+  <circle cx="54" cy="16" r="3" fill="#0f0f0f"/>
+  <circle cx="54" cy="32" r="3" fill="#0f0f0f"/>
+  <circle cx="54" cy="48" r="3" fill="#0f0f0f"/>
+  <!-- play triangle -->
+  <path d="M26 20 L26 44 L46 32 Z" fill="#0f0f0f"/>
 </svg>

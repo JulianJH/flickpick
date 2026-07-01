@@ -6,8 +6,16 @@ interface Props {
   onStart: (username: string, size: MatchSize) => void
 }
 
+const LAST_USERNAME_KEY = 'flickpick-last-username'
+
 export function HomeScreen({ onStart }: Props) {
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(() => {
+    try {
+      return localStorage.getItem(LAST_USERNAME_KEY) ?? ''
+    } catch {
+      return ''
+    }
+  })
   const [size, setSize] = useState<MatchSize>(8)
   const [error, setError] = useState('')
 
@@ -19,6 +27,11 @@ export function HomeScreen({ onStart }: Props) {
       return
     }
     setError('')
+    try {
+      localStorage.setItem(LAST_USERNAME_KEY, trimmed)
+    } catch {
+      // ignore (e.g. private browsing)
+    }
     onStart(trimmed, size)
   }
 

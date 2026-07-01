@@ -21,7 +21,6 @@ export function MovieCard({ movie, onPick }: Props) {
   const pickOverlayOpacity = useTransform(distance, [0, DISTANCE_THRESHOLD], [0, 1])
 
   function handleDragEnd(_: unknown, info: PanInfo) {
-    setIsDragging(false)
     // Use the actual (elastic-adjusted) card position, not the raw pointer offset,
     // so a big finger movement that only nudges the card visually doesn't count as a swipe.
     const traveled = Math.hypot(x.get(), y.get())
@@ -29,10 +28,13 @@ export function MovieCard({ movie, onPick }: Props) {
     const swiped = traveled > DISTANCE_THRESHOLD || (flicked && traveled > DISTANCE_THRESHOLD * 0.35)
 
     if (swiped) {
+      setIsDragging(false)
       onPick()
     } else {
-      animate(x, 0, { type: 'spring', stiffness: 500, damping: 30 })
-      animate(y, 0, { type: 'spring', stiffness: 500, damping: 30 })
+      // Stay elevated until the spring-back settles, so it doesn't dip under its sibling mid-animation
+      const springOptions = { type: 'spring', stiffness: 500, damping: 30 } as const
+      animate(x, 0, springOptions)
+      animate(y, 0, { ...springOptions, onComplete: () => setIsDragging(false) })
     }
   }
 

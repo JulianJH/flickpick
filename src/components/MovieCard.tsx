@@ -1,9 +1,9 @@
 import { animate, motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion'
+import { useState } from 'react'
 import type { Movie } from '../types'
 
 interface Props {
   movie: Movie
-  position: 'top' | 'bottom'
   onPick: () => void
 }
 
@@ -12,20 +12,16 @@ interface Props {
 const DISTANCE_THRESHOLD = 140
 const VELOCITY_THRESHOLD = 700
 
-export function MovieCard({ movie, position, onPick }: Props) {
+export function MovieCard({ movie, onPick }: Props) {
+  const [isDragging, setIsDragging] = useState(false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotate = useTransform(x, [-200, 200], [-6, 6])
   const distance = useTransform([x, y], ([xv, yv]: number[]) => Math.hypot(xv, yv))
   const pickOverlayOpacity = useTransform(distance, [0, DISTANCE_THRESHOLD], [0, 1])
 
-  // Only free to swipe outward (top card up, bottom card down); inward is hard-blocked (no rubber-band)
-  const dragConstraints =
-    position === 'top' ? { top: -1000, bottom: 0, left: -1000, right: 1000 } : { top: 0, bottom: 1000, left: -1000, right: 1000 }
-  const dragElastic =
-    position === 'top' ? { top: 0.5, bottom: 0, left: 0.5, right: 0.5 } : { top: 0, bottom: 0.5, left: 0.5, right: 0.5 }
-
   function handleDragEnd(_: unknown, info: PanInfo) {
+    setIsDragging(false)
     // Use the actual (elastic-adjusted) card position, not the raw pointer offset,
     // so a big finger movement that only nudges the card visually doesn't count as a swipe.
     const traveled = Math.hypot(x.get(), y.get())
@@ -43,11 +39,12 @@ export function MovieCard({ movie, position, onPick }: Props) {
   return (
     <motion.div
       className="relative w-full h-full rounded-2xl overflow-hidden bg-lb-surface border border-lb-border cursor-pointer select-none"
-      style={{ x, y, rotate }}
+      style={{ x, y, rotate, zIndex: isDragging ? 20 : 0 }}
       drag
-      dragConstraints={dragConstraints}
-      dragElastic={dragElastic}
+      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragElastic={0.5}
       dragMomentum={false}
+      onDragStart={() => setIsDragging(true)}
       onDragEnd={handleDragEnd}
       onClick={onPick}
       whileTap={{ scale: 0.98 }}

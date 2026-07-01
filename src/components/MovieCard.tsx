@@ -3,35 +3,29 @@ import type { Movie } from '../types'
 
 interface Props {
   movie: Movie
-  position: 'top' | 'bottom'
   onPick: () => void
 }
 
 const SWIPE_THRESHOLD = 90
 
-export function MovieCard({ movie, position, onPick }: Props) {
+export function MovieCard({ movie, onPick }: Props) {
+  const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const rotate = useTransform(y, [-200, 200], position === 'top' ? [-4, 4] : [4, -4])
-
-  // Overlay only lights up when dragging toward this card's "away from center" direction
-  const pickOverlayOpacity = useTransform(
-    y,
-    [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
-    position === 'top' ? [1, 0, 0] : [0, 0, 1],
-  )
+  const rotate = useTransform(x, [-200, 200], [-6, 6])
+  const distance = useTransform([x, y], ([xv, yv]: number[]) => Math.hypot(xv, yv))
+  const pickOverlayOpacity = useTransform(distance, [0, SWIPE_THRESHOLD], [0, 1])
 
   function handleDragEnd(_: unknown, info: PanInfo) {
-    const shouldPick =
-      position === 'top' ? info.offset.y < -SWIPE_THRESHOLD : info.offset.y > SWIPE_THRESHOLD
-    if (shouldPick) onPick()
+    const swiped = Math.hypot(info.offset.x, info.offset.y) > SWIPE_THRESHOLD
+    if (swiped) onPick()
   }
 
   return (
     <motion.div
       className="relative w-full h-full rounded-2xl overflow-hidden bg-lb-surface border border-lb-border cursor-pointer select-none"
-      style={{ y, rotate }}
-      drag="y"
-      dragConstraints={{ top: 0, bottom: 0 }}
+      style={{ x, y, rotate }}
+      drag
+      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
       dragElastic={0.4}
       dragMomentum={false}
       onDragEnd={handleDragEnd}

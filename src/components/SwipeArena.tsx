@@ -64,10 +64,10 @@ export function SwipeArena({
             className="flex-1 min-h-0 flex flex-col gap-1.5"
           >
             <div className="flex-1 min-h-0">
-              <MovieCard movie={matchup.a} position="top" onPick={() => onPick('a')} />
+              <MovieCard movie={matchup.a} onPick={() => onPick('a')} />
             </div>
             <div className="flex-1 min-h-0">
-              <MovieCard movie={matchup.b} position="bottom" onPick={() => onPick('b')} />
+              <MovieCard movie={matchup.b} onPick={() => onPick('b')} />
             </div>
           </motion.div>
         </AnimatePresence>

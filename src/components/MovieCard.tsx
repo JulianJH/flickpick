@@ -13,11 +13,7 @@ const DISTANCE_THRESHOLD = 90
 const VELOCITY_THRESHOLD = 200
 
 function formatRuntime(minutes: number): string {
-  const h = Math.floor(minutes / 60)
-  const m = minutes % 60
-  if (h === 0) return `${m}m`
-  if (m === 0) return `${h}h`
-  return `${h}h ${m}m`
+  return `${minutes} mins`
 }
 
 export function MovieCard({ movie, onPick }: Props) {

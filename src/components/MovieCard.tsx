@@ -12,6 +12,14 @@ interface Props {
 const DISTANCE_THRESHOLD = 90
 const VELOCITY_THRESHOLD = 200
 
+function formatRuntime(minutes: number): string {
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  if (h === 0) return `${m}m`
+  if (m === 0) return `${h}h`
+  return `${h}h ${m}m`
+}
+
 export function MovieCard({ movie, onPick }: Props) {
   const [isDragging, setIsDragging] = useState(false)
   const x = useMotionValue(0)
@@ -88,7 +96,15 @@ export function MovieCard({ movie, onPick }: Props) {
       {/* Title */}
       <div className="absolute bottom-0 inset-x-0 px-3 py-2.5 bg-gradient-to-t from-black/85 to-transparent">
         <p className="text-white font-semibold text-sm leading-snug line-clamp-1">{movie.title}</p>
-        {movie.year > 0 && <p className="text-white/70 text-xs">{movie.year}</p>}
+        {(movie.year > 0 || movie.runtimeMinutes) && (
+          <p className="text-white/70 text-xs">
+            {movie.year > 0 && movie.year}
+            {movie.year > 0 && movie.runtimeMinutes ? ' · ' : ''}
+            {movie.runtimeMinutes && (
+              <span className="text-white/50">{formatRuntime(movie.runtimeMinutes)}</span>
+            )}
+          </p>
+        )}
       </div>
     </motion.div>
   )

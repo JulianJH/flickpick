@@ -18,6 +18,8 @@ interface TMDBResult {
   overview?: string
 }
 
+type MediaType = 'movie' | 'tv'
+
 async function searchEndpoint(
   endpoint: 'search/movie' | 'search/tv',
   title: string,
@@ -40,21 +42,36 @@ async function searchEndpoint(
   return (data.results as TMDBResult[])[0] ?? null
 }
 
-async function searchMovie(title: string, year: number | null): Promise<TMDBResult | null> {
+async function searchMovie(
+  title: string,
+  year: number | null,
+): Promise<{ result: TMDBResult; mediaType: MediaType } | null> {
   // 1. Movie search with year
   if (year) {
     const r = await searchEndpoint('search/movie', title, year)
-    if (r) return r
+    if (r) return { result: r, mediaType: 'movie' }
   }
   // 2. Movie search without year
   const r2 = await searchEndpoint('search/movie', title)
-  if (r2) return r2
+  if (r2) return { result: r2, mediaType: 'movie' }
   // 3. TV search (handles miniseries, shows listed on Letterboxd)
   if (year) {
     const r3 = await searchEndpoint('search/tv', title, year)
-    if (r3) return r3
+    if (r3) return { result: r3, mediaType: 'tv' }
   }
-  return searchEndpoint('search/tv', title)
+  const r4 = await searchEndpoint('search/tv', title)
+  return r4 ? { result: r4, mediaType: 'tv' } : null
+}
+
+async function fetchRuntimeMinutes(id: number, mediaType: MediaType): Promise<number | null> {
+  const res = await fetch(`${BASE_URL}/${mediaType}/${id}?api_key=${apiKey()}`)
+  if (!res.ok) return null
+
+  const data = await res.json()
+  if (mediaType === 'movie') return typeof data.runtime === 'number' && data.runtime > 0 ? data.runtime : null
+
+  const episodeRuntimes = data.episode_run_time as number[] | undefined
+  return episodeRuntimes && episodeRuntimes.length > 0 ? episodeRuntimes[0] : null
 }
 
 export function posterUrl(path: string): string {
@@ -74,11 +91,20 @@ export async function enrichMovies(
       batch.map((f) => searchMovie(f.title, f.year)),
     )
 
+    const runtimes = await Promise.allSettled(
+      settled.map((r) =>
+        r.status === 'fulfilled' && r.value
+          ? fetchRuntimeMinutes(r.value.result.id, r.value.mediaType)
+          : Promise.resolve(null),
+      ),
+    )
+
     settled.forEach((result, idx) => {
       const film = batch[idx]
       if (result.status === 'fulfilled' && result.value) {
-        const tmdb = result.value
+        const { result: tmdb } = result.value
         const year = tmdb.release_date ? parseInt(tmdb.release_date.slice(0, 4), 10) : (film.year ?? 0)
+        const runtimeResult = runtimes[idx]
         results.push({
           id: `tmdb-${tmdb.id}`,
           title: tmdb.title,
@@ -87,6 +113,7 @@ export async function enrichMovies(
           letterboxdUrl: film.letterboxdUrl,
           tmdbId: tmdb.id,
           overview: tmdb.overview,
+          runtimeMinutes: runtimeResult.status === 'fulfilled' ? runtimeResult.value : null,
         })
       } else {
         results.push({

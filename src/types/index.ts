@@ -6,6 +6,7 @@ export interface Movie {
   letterboxdUrl: string
   tmdbId?: number
   overview?: string
+  runtimeMinutes?: number | null
 }
 
 export interface Matchup {

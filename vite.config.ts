@@ -21,8 +21,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icons/*.png'],
       manifest: {
-        name: 'Watchlist Tinder',
-        short_name: 'WatchlistTinder',
+        name: 'FlickPick',
+        short_name: 'FlickPick',
         description: 'Pick a movie from your Letterboxd watchlist using a tournament bracket',
         theme_color: '#0f0f0f',
         background_color: '#0f0f0f',

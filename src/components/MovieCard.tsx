@@ -3,17 +3,22 @@ import type { Movie } from '../types'
 
 interface Props {
   movie: Movie
+  position: 'top' | 'bottom'
   onPick: () => void
 }
 
 const SWIPE_THRESHOLD = 90
 
-export function MovieCard({ movie, onPick }: Props) {
+export function MovieCard({ movie, position, onPick }: Props) {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotate = useTransform(x, [-200, 200], [-6, 6])
   const distance = useTransform([x, y], ([xv, yv]: number[]) => Math.hypot(xv, yv))
   const pickOverlayOpacity = useTransform(distance, [0, SWIPE_THRESHOLD], [0, 1])
+
+  // Only free to swipe outward (top card up, bottom card down); inward is constrained away
+  const dragConstraints =
+    position === 'top' ? { top: -1000, bottom: 0, left: -1000, right: 1000 } : { top: 0, bottom: 1000, left: -1000, right: 1000 }
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     const swiped = Math.hypot(info.offset.x, info.offset.y) > SWIPE_THRESHOLD
@@ -25,7 +30,7 @@ export function MovieCard({ movie, onPick }: Props) {
       className="relative w-full h-full rounded-2xl overflow-hidden bg-lb-surface border border-lb-border cursor-pointer select-none"
       style={{ x, y, rotate }}
       drag
-      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragConstraints={dragConstraints}
       dragElastic={0.4}
       dragMomentum={false}
       onDragEnd={handleDragEnd}

@@ -67,47 +67,47 @@ export function SwipeArena({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.25 }}
-          className="flex flex-col px-4 gap-4 pb-6"
+          className="flex flex-col px-4 gap-3 pb-6"
         >
-          <div className="flex gap-3 items-start">
-            {/* Movie A */}
-            <div className="flex-1 flex flex-col gap-2">
-              <MovieCard
-                movie={matchup.a}
-                side="left"
-                onPick={() => onPick('a')}
-              />
-              <button
-                onClick={() => onPick('a')}
-                className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
-              >
-                Pick This
-              </button>
-            </div>
+          {/* Movie A */}
+          <div className="flex flex-col gap-2">
+            <MovieCard
+              movie={matchup.a}
+              side="left"
+              onPick={() => onPick('a')}
+              compact
+            />
+            <button
+              onClick={() => onPick('a')}
+              className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
+            >
+              Pick This
+            </button>
+          </div>
 
-            {/* Divider */}
-            <div className="flex flex-col items-center justify-center gap-1 self-stretch">
-              <div className="w-px flex-1 bg-lb-border" />
-              <span className="text-lb-muted text-xs font-bold bg-lb-surface rounded-full px-2 py-1">
-                VS
-              </span>
-              <div className="w-px flex-1 bg-lb-border" />
-            </div>
+          {/* Divider */}
+          <div className="flex items-center gap-2">
+            <div className="h-px flex-1 bg-lb-border" />
+            <span className="text-lb-muted text-xs font-bold bg-lb-surface rounded-full px-2 py-1">
+              VS
+            </span>
+            <div className="h-px flex-1 bg-lb-border" />
+          </div>
 
-            {/* Movie B */}
-            <div className="flex-1 flex flex-col gap-2">
-              <MovieCard
-                movie={matchup.b}
-                side="right"
-                onPick={() => onPick('b')}
-              />
-              <button
-                onClick={() => onPick('b')}
-                className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
-              >
-                Pick This
-              </button>
-            </div>
+          {/* Movie B */}
+          <div className="flex flex-col gap-2">
+            <MovieCard
+              movie={matchup.b}
+              side="right"
+              onPick={() => onPick('b')}
+              compact
+            />
+            <button
+              onClick={() => onPick('b')}
+              className="w-full py-3 bg-lb-card border border-lb-border rounded-xl text-lb-text font-semibold text-sm hover:bg-lb-accent hover:border-lb-accent hover:text-white transition-all"
+            >
+              Pick This
+            </button>
           </div>
         </motion.div>
       </AnimatePresence>

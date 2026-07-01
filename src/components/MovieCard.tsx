@@ -6,11 +6,12 @@ interface Props {
   side: 'left' | 'right'
   onPick: () => void
   isDraggable?: boolean
+  compact?: boolean
 }
 
 const SWIPE_THRESHOLD = 80
 
-export function MovieCard({ movie, side, onPick, isDraggable = true }: Props) {
+export function MovieCard({ movie, side, onPick, isDraggable = true, compact = false }: Props) {
   const x = useMotionValue(0)
   const rotate = useTransform(x, [-200, 200], [-12, 12])
   const opacity = useTransform(x, [-200, 0, 200], [0.4, 1, 0.4])
@@ -30,7 +31,11 @@ export function MovieCard({ movie, side, onPick, isDraggable = true }: Props) {
 
   return (
     <motion.div
-      className="relative flex flex-col rounded-2xl overflow-hidden bg-lb-card border border-lb-border cursor-pointer select-none"
+      className={
+        compact
+          ? 'relative flex flex-row rounded-2xl overflow-hidden bg-lb-card border border-lb-border cursor-pointer select-none'
+          : 'relative flex flex-col rounded-2xl overflow-hidden bg-lb-card border border-lb-border cursor-pointer select-none'
+      }
       style={isDraggable ? { x, rotate, opacity } : {}}
       drag={isDraggable ? 'x' : false}
       dragConstraints={{ left: 0, right: 0 }}
@@ -40,7 +45,7 @@ export function MovieCard({ movie, side, onPick, isDraggable = true }: Props) {
       whileTap={{ scale: 0.98 }}
     >
       {/* Poster */}
-      <div className="relative aspect-[2/3] w-full bg-lb-surface">
+      <div className={compact ? 'relative w-24 aspect-[2/3] shrink-0 bg-lb-surface' : 'relative aspect-[2/3] w-full bg-lb-surface'}>
         {movie.posterPath ? (
           <img
             src={movie.posterPath}
@@ -66,16 +71,17 @@ export function MovieCard({ movie, side, onPick, isDraggable = true }: Props) {
         )}
 
         {/* Year badge */}
-        {movie.year > 0 && (
+        {movie.year > 0 && !compact && (
           <div className="absolute bottom-2 right-2 bg-black/70 rounded-md px-2 py-0.5 text-xs text-white font-medium">
             {movie.year}
           </div>
         )}
       </div>
 
-      {/* Title — fixed height so both cards stay the same size */}
-      <div className="p-3 min-h-[3.5rem] flex items-start">
+      {/* Title */}
+      <div className={compact ? 'p-3 flex flex-col justify-center gap-1 min-w-0' : 'p-3 min-h-[3.5rem] flex items-start'}>
         <p className="text-lb-text font-semibold text-sm leading-snug line-clamp-2">{movie.title}</p>
+        {compact && movie.year > 0 && <p className="text-lb-muted text-xs">{movie.year}</p>}
       </div>
     </motion.div>
   )

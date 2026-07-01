@@ -15,7 +15,7 @@
   </g>
 
   <!-- letterboxd-style trio dots, along the bottom -->
-  <circle cx="24" cy="56" r="2.2" fill="#00e054"/>
-  <circle cx="31.2" cy="56" r="2.2" fill="#ff8000"/>
+  <circle cx="24" cy="56" r="2.2" fill="#ff8000"/>
+  <circle cx="31.2" cy="56" r="2.2" fill="#00e054"/>
   <circle cx="38.4" cy="56" r="2.2" fill="#40bcf4"/>
 </svg>

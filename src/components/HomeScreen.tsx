@@ -98,7 +98,7 @@ export function HomeScreen({ onStart }: Props) {
         </form>
 
         <p className="mt-8 text-center text-xs text-lb-muted">
-          Fetches your public watchlist from Letterboxd RSS.
+          Fetches your public watchlist from Letterboxd.
           <br />
           No login required.
         </p>

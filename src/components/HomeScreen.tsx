@@ -36,7 +36,7 @@ export function HomeScreen({ onStart }: Props) {
             <span className="text-3xl">🎬</span>
           </div>
           <h1 className="text-3xl font-extrabold text-lb-text tracking-tight">
-            Watchlist<span className="text-lb-accent">Tinder</span>
+            Flick<span className="text-lb-accent">Pick</span>
           </h1>
           <p className="mt-2 text-lb-text-dim text-sm">
             Pick your next movie — tournament style.

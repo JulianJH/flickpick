@@ -71,9 +71,10 @@ export function useTournament() {
       ? state.rounds[state.currentRound]?.[state.currentMatchup] ?? null
       : null
 
-  const totalMatchups = state
-    ? state.rounds.reduce((sum, r) => sum + r.length, 0)
-  : 0
+  // Fixed for the whole bracket: a single-elimination knockout of N players
+  // always takes exactly N-1 matches, regardless of how many rounds have
+  // been discovered/appended to `state.rounds` so far.
+  const totalMatchups = state ? state.movies.length - 1 : 0
 
   const completedMatchups = state
     ? state.rounds.slice(0, state.currentRound).reduce((sum, r) => sum + r.length, 0) +

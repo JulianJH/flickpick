@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { useState } from 'react'
 import { MovieCard } from './MovieCard'
+import { TutorialOverlay } from './TutorialOverlay'
 import type { Matchup } from '../types'
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
   onBack: () => void
 }
 
+const TUTORIAL_SEEN_KEY = 'flickpick-tutorial-seen'
+
 export function SwipeArena({
   matchup,
   matchupKey,
@@ -22,6 +26,22 @@ export function SwipeArena({
   onBack,
 }: Props) {
   const progress = totalMatchups > 0 ? (completedMatchups / totalMatchups) * 100 : 0
+  const [showTutorial, setShowTutorial] = useState(() => {
+    try {
+      return !localStorage.getItem(TUTORIAL_SEEN_KEY)
+    } catch {
+      return false
+    }
+  })
+
+  function dismissTutorial() {
+    setShowTutorial(false)
+    try {
+      localStorage.setItem(TUTORIAL_SEEN_KEY, '1')
+    } catch {
+      // ignore (e.g. private browsing)
+    }
+  }
 
   return (
     <div className="h-dvh bg-lb-bg flex flex-col overflow-hidden">
@@ -53,7 +73,7 @@ export function SwipeArena({
       </div>
 
       {/* Cards — full-bleed split screen, swipe toward your pick */}
-      <div className="relative flex-1 min-h-0 flex flex-col gap-1.5 px-3 pb-3">
+      <div className={`relative flex-1 min-h-0 flex flex-col gap-1.5 px-3 pb-3 ${showTutorial ? 'pointer-events-none' : ''}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={matchupKey}
@@ -79,6 +99,10 @@ export function SwipeArena({
           </span>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showTutorial && <TutorialOverlay key="tutorial" onDismiss={dismissTutorial} />}
+      </AnimatePresence>
     </div>
   )
 }

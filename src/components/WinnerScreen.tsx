@@ -121,7 +121,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
             onClick={onHome}
             className="w-full bg-lb-card border border-lb-border text-lb-text-dim font-semibold py-3 rounded-xl text-sm hover:text-lb-text transition-colors"
           >
-            Change Username
+            Start Over
           </button>
         </motion.div>
       </motion.div>

@@ -61,7 +61,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mx-auto w-48 rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-lb-border mb-6"
+          className="mx-auto w-48 rounded overflow-hidden shadow-2xl shadow-black/60 border border-lb-border mb-6"
         >
           {winner.posterPath ? (
             <img src={winner.posterPath} alt={winner.title} className="w-full" />
@@ -76,7 +76,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="text-2xl font-extrabold text-lb-text leading-tight mb-1"
+          className="font-display text-2xl font-extrabold text-lb-text leading-tight mb-1"
         >
           {winner.title}
         </motion.h1>
@@ -113,13 +113,13 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
         >
           <button
             onClick={onPlayAgain}
-            className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-4 rounded-xl text-base transition-colors"
+            className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-4 rounded text-base transition-colors"
           >
             Pick Another →
           </button>
           <button
             onClick={onHome}
-            className="w-full bg-lb-card border border-lb-border text-lb-text-dim font-semibold py-3 rounded-xl text-sm hover:text-lb-text transition-colors"
+            className="w-full bg-lb-card border border-lb-border text-lb-text-dim font-semibold py-3 rounded text-sm hover:text-lb-text transition-colors"
           >
             Start Over
           </button>

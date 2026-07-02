@@ -76,7 +76,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="text-2xl font-extrabold text-lb-text leading-tight mb-1"
+          className="font-display text-2xl font-extrabold text-lb-text leading-tight mb-1"
         >
           {winner.title}
         </motion.h1>

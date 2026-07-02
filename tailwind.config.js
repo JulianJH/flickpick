@@ -5,19 +5,21 @@ export default {
     extend: {
       colors: {
         lb: {
-          bg: '#0f0f0f',
-          surface: '#1a1a1a',
-          card: '#242424',
-          border: '#2e2e2e',
-          accent: '#00c030',
-          'accent-dim': '#009020',
-          muted: '#6b7280',
-          text: '#e8e8e8',
-          'text-dim': '#9ca3af',
+          bg: '#1c1229',
+          surface: '#271a38',
+          card: '#2f2044',
+          border: '#3d2b52',
+          accent: '#b89b5e',
+          accent2: '#d4bc86',
+          'accent-dim': '#9c8149',
+          muted: '#7c6a95',
+          text: '#f3eefb',
+          'text-dim': '#d8cfe8',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: [['DM Serif Display', 'serif']],
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',

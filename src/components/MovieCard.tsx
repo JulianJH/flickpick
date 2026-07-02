@@ -91,7 +91,7 @@ export function MovieCard({ movie, onPick }: Props) {
 
       {/* Title */}
       <div className="absolute bottom-0 inset-x-0 px-3 py-2.5 bg-gradient-to-t from-black/85 to-transparent">
-        <p className="text-white font-semibold text-sm leading-snug line-clamp-1">{movie.title}</p>
+        <p className="font-display text-white font-semibold text-sm leading-snug line-clamp-1">{movie.title}</p>
         {(movie.year > 0 || movie.runtimeMinutes) && (
           <p className="text-white/70 text-xs">
             {movie.year > 0 && movie.year}

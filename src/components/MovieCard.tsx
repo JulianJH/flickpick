@@ -45,7 +45,7 @@ export function MovieCard({ movie, onPick }: Props) {
 
   return (
     <motion.div
-      className="relative w-full h-full rounded-2xl overflow-hidden bg-lb-surface border border-lb-border cursor-pointer select-none"
+      className="relative w-full h-full rounded-lg overflow-hidden bg-lb-surface border border-lb-border cursor-pointer select-none"
       style={{ x, y, rotate, zIndex: isDragging ? 20 : 0 }}
       drag
       dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
@@ -77,7 +77,7 @@ export function MovieCard({ movie, onPick }: Props) {
         </>
       ) : (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-5xl opacity-30">🎬</span>
+          <span className="font-display text-lb-muted text-sm uppercase tracking-widest opacity-60">No Poster</span>
         </div>
       )}
 
@@ -91,7 +91,7 @@ export function MovieCard({ movie, onPick }: Props) {
 
       {/* Title */}
       <div className="absolute bottom-0 inset-x-0 px-3 py-2.5 bg-gradient-to-t from-black/85 to-transparent">
-        <p className="text-white font-semibold text-sm leading-snug line-clamp-1">{movie.title}</p>
+        <p className="font-display text-white font-semibold text-sm leading-snug line-clamp-1">{movie.title}</p>
         {(movie.year > 0 || movie.runtimeMinutes) && (
           <p className="text-white/70 text-xs">
             {movie.year > 0 && movie.year}

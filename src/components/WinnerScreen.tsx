@@ -7,17 +7,18 @@ interface Props {
   onHome: () => void
 }
 
-const CONFETTI = ['🎉', '🎊', '⭐', '🍿', '🎬', '✨']
+const CONFETTI = ['★', '✦', '✧', '●']
+const CONFETTI_COLORS = ['text-lb-accent', 'text-lb-accent2', 'text-lb-text-dim']
 
 export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
   return (
-    <div className="min-h-dvh bg-lb-bg flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-dvh bg-lb-bg film-grain flex flex-col items-center justify-center px-6 py-12">
       {/* Floating confetti */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {Array.from({ length: 18 }).map((_, i) => (
           <motion.span
             key={i}
-            className="absolute text-2xl"
+            className={`absolute text-xl ${CONFETTI_COLORS[i % CONFETTI_COLORS.length]}`}
             initial={{
               x: `${Math.random() * 100}vw`,
               y: '-10vh',
@@ -53,7 +54,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           transition={{ delay: 0.2 }}
           className="text-lb-accent font-black text-sm uppercase tracking-widest mb-3"
         >
-          🏆 Tonight's Pick
+          ★ Tonight's Pick
         </motion.p>
 
         {/* Poster */}
@@ -61,13 +62,13 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mx-auto w-48 rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-lb-border mb-6"
+          className="mx-auto w-48 rounded-lg overflow-hidden shadow-2xl shadow-black/60 border border-lb-border mb-6"
         >
           {winner.posterPath ? (
             <img src={winner.posterPath} alt={winner.title} className="w-full" />
           ) : (
             <div className="aspect-[2/3] bg-lb-card flex items-center justify-center">
-              <span className="text-6xl opacity-30">🎬</span>
+              <span className="font-display text-lb-muted text-sm uppercase tracking-widest opacity-60">No Poster</span>
             </div>
           )}
         </motion.div>
@@ -76,7 +77,7 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="text-2xl font-extrabold text-lb-text leading-tight mb-1"
+          className="font-display text-2xl font-bold text-lb-text leading-tight mb-1"
         >
           {winner.title}
         </motion.h1>
@@ -113,13 +114,13 @@ export function WinnerScreen({ winner, onPlayAgain, onHome }: Props) {
         >
           <button
             onClick={onPlayAgain}
-            className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-4 rounded-xl text-base transition-colors"
+            className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-4 rounded-lg text-base transition-colors"
           >
             Pick Another →
           </button>
           <button
             onClick={onHome}
-            className="w-full bg-lb-card border border-lb-border text-lb-text-dim font-semibold py-3 rounded-xl text-sm hover:text-lb-text transition-colors"
+            className="w-full bg-lb-card border border-lb-border text-lb-text-dim font-semibold py-3 rounded-lg text-sm hover:text-lb-text transition-colors"
           >
             Start Over
           </button>

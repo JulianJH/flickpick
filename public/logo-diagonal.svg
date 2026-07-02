@@ -4,14 +4,14 @@
     <clipPath id="badge"><rect width="64" height="64" rx="14"/></clipPath>
   </defs>
   <g clip-path="url(#badge)">
-    <rect width="64" height="64" fill="#1a1a1a"/>
-    <path d="M0 64 L64 0 L64 64 Z" fill="#00c030"/>
+    <rect width="64" height="64" fill="#ffffff"/>
+    <path d="M0 64 L64 0 L64 64 Z" fill="#111111"/>
   </g>
 
   <!-- eye, centered on the diagonal seam -->
-  <path d="M18 32 Q32 16 46 32 Q32 48 18 32 Z" fill="#e8e8e8"/>
-  <circle cx="32" cy="32" r="4.2" fill="#00c030"/>
-  <circle cx="32" cy="32" r="2.7" fill="#e8e8e8"/>
+  <path d="M18 32 Q32 16 46 32 Q32 48 18 32 Z" fill="#111111"/>
+  <circle cx="32" cy="32" r="4.2" fill="#111111"/>
+  <circle cx="32" cy="32" r="2.7" fill="#111111"/>
 
   <!-- trio dots, small cluster in the dark corner -->
   <circle cx="14" cy="50" r="1.9" fill="#ff8000"/>

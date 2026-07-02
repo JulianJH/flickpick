@@ -23,14 +23,14 @@ export function TutorialOverlay({ onDismiss }: Props) {
           <motion.div
             animate={{ y: [-6, 0, -6] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-16 h-24 rounded-xl bg-lb-card border border-lb-border flex items-center justify-center text-2xl"
+            className="w-16 h-24 rounded-md bg-lb-card border border-lb-border flex items-center justify-center text-2xl"
           >
             ↑
           </motion.div>
           <motion.div
             animate={{ y: [6, 0, 6] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-16 h-24 rounded-xl bg-lb-card border border-lb-border flex items-center justify-center text-2xl"
+            className="w-16 h-24 rounded-md bg-lb-card border border-lb-border flex items-center justify-center text-2xl"
           >
             ↓
           </motion.div>
@@ -44,7 +44,7 @@ export function TutorialOverlay({ onDismiss }: Props) {
 
         <button
           onClick={onDismiss}
-          className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-3.5 rounded-xl text-sm transition-colors"
+          className="w-full bg-lb-accent hover:bg-lb-accent-dim text-white font-bold py-3.5 rounded-md text-sm transition-colors"
         >
           Got it →
         </button>

@@ -5,12 +5,12 @@
   <rect x="27" y="14" width="22" height="34" rx="5" fill="#1c2228" stroke="#2c3440" stroke-width="1.5" transform="rotate(8 38 31)"/>
 
   <!-- front swiped card -->
-  <rect x="16" y="12" width="24" height="36" rx="5" fill="#00e054" transform="rotate(-9 28 30)"/>
+  <rect x="16" y="12" width="24" height="36" rx="5" fill="#ff8000" transform="rotate(-9 28 30)"/>
 
   <!-- letterboxd "watched" eye badge, centered on the front card -->
   <g transform="rotate(-9 28 30)">
     <path d="M20.9 30 Q28 22 35.1 30 Q28 38 20.9 30 Z" fill="#2c3440"/>
-    <circle cx="28" cy="30" r="2.6" fill="#00e054"/>
+    <circle cx="28" cy="30" r="2.6" fill="#ff8000"/>
     <circle cx="28" cy="30" r="1.8" fill="#2c3440"/>
   </g>
 

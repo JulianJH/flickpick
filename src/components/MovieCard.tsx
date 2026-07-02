@@ -83,7 +83,7 @@ export function MovieCard({ movie, onPick }: Props) {
 
       {/* Pick overlay while dragging toward this card */}
       <motion.div
-        className="absolute inset-0 bg-lb-accent/30 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 bg-lb-accent2/30 flex items-center justify-center pointer-events-none"
         style={{ opacity: pickOverlayOpacity }}
       >
         <span className="text-white text-3xl font-black tracking-widest drop-shadow">PICK</span>
